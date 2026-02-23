@@ -1,8 +1,8 @@
 <?php
 // upload_image.php - Handle image uploads for cars
 
-require_once '../../cnn.php';
-require_once '../../session.php';
+require_once '../cnn.php';
+require_once '../session.php';
 
 // Check if user is logged in (API style - return JSON instead of redirect)
 if (!isLoggedIn()) {
@@ -78,7 +78,7 @@ $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
 $filename = 'car_' . $carId . '_' . time() . '.' . $extension;
 
 // Define upload directory
-$uploadDir = __DIR__ . '/../../images/';
+$uploadDir = __DIR__ . '/../images/';
 $uploadPath = $uploadDir . $filename;
 
 // Create directory if it doesn't exist
@@ -88,7 +88,7 @@ if (!is_dir($uploadDir)) {
 
 // Delete old image if it exists
 if (!empty($car['image_filename'])) {
-    $oldImagePath = __DIR__ . '/../../images/' . $car['image_filename'];
+    $oldImagePath = __DIR__ . '/../images/' . $car['image_filename'];
     if (file_exists($oldImagePath)) {
         unlink($oldImagePath);
     }

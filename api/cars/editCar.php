@@ -1,5 +1,5 @@
 <?php
-require_once '../../cnn.php';
+require_once '../cnn.php';
 $data = $_REQUEST;
 $response['msg'] = false;
 

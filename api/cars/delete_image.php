@@ -1,8 +1,8 @@
 <?php
 // delete_image.php - Handle image deletion for cars
 
-require_once '../../cnn.php';
-require_once '../../session.php';
+require_once '../cnn.php';
+require_once '../session.php';
 
 // Check if user is logged in (API style - return JSON instead of redirect)
 if (!isLoggedIn()) {
@@ -55,7 +55,7 @@ try {
 }
 
 // Delete the image file
-$imagePath = __DIR__ . '/../../images/' . $car['image_filename'];
+$imagePath = __DIR__ . '/../images/' . $car['image_filename'];
 if (file_exists($imagePath)) {
     if (!unlink($imagePath)) {
         http_response_code(500);
