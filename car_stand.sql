@@ -155,7 +155,6 @@ INSERT INTO customer (name, email, phone, address, status) VALUES
 
 INSERT INTO cars (make, model, year, price, description, is_for_sale, is_for_rent, daily_rent_price, owner_id) VALUES
 ('Toyota', 'Corolla', 2020, 25000.00, 'Sedan confiável', TRUE, TRUE, 50.00, 1),
-('Honda', 'Civic', 2019, 22000.00, 'Carro esportivo', TRUE, FALSE, NULL, 2),
 ('BMW', 'X3', 2021, 45000.00, 'SUV de luxo', FALSE, TRUE, 100.00, NULL),
 ('Mercedes-Benz', 'C-Class', 2022, 55000.00, 'Sedan executivo premium', TRUE, TRUE, 120.00, 3),
 ('Volkswagen', 'Golf', 2021, 28000.00, 'Hatchback versátil', TRUE, TRUE, 60.00, 3),
@@ -195,10 +194,19 @@ INSERT INTO cars (make, model, year, price, description, is_for_sale, is_for_ren
 ('Seat', 'Ibiza', 2023, 18000.00, 'Citadino espanhol', TRUE, FALSE, NULL, 35),
 ('Skoda', 'Fabia', 2022, 17000.00, 'Citadino checo', TRUE, TRUE, 36.00, 36),
 ('Dacia', 'Sandero', 2023, 13000.00, 'Citadino económico', TRUE, FALSE, NULL, 37),
-('Fiat', 'Panda', 2022, 12000.00, 'Citadino italiano', TRUE, TRUE, 28.00, 38),
 ('Renault', 'Twingo', 2023, 11000.00, 'Micro citadino', TRUE, TRUE, 25.00, 39),
 ('Peugeot', '108', 2022, 13000.00, 'Citadino francês', TRUE, FALSE, NULL, 40),
 ('Citroën', 'C1', 2023, 12500.00, 'Citadino francês', TRUE, TRUE, 27.00, 41);
+
+
+INSERT INTO cars (make, model, year, price, description, image, status, owner_id, is_for_sale, is_for_rent, daily_rent_price, created_at, image_filename) VALUES
+('Honda', 'Civic', '2019', '24000.00', 'Carro desportivo', NULL, 'available', '2', '1', '0', NULL, '2026-02-22 21:38:53', 'car_128_1771808139.png'),
+('BMW', 'X3', '2021', '49000.00', 'SUV de luxo', NULL, 'available', NULL, '0', '1', '100.00', '2026-02-22 21:38:53', 'car_129_1771808105.png'),
+('Mercedes-Benz', 'C-Class', '2022', '90900.00', 'Sedan executivo premium', NULL, 'available', '3', '1', '1', '120.00', '2026-02-22 21:38:53', 'car_130_1771808364.png'),
+('Audi', 'A4', '2020', '92000.00', 'Sedan elegante', NULL, 'available', '4', '1', '0', NULL, '2026-02-22 21:38:53', 'car_132_1771808070.png'),
+('Peugeot', '308', '2021', '36000.00', 'Familiar confortável', NULL, 'available', '6', '1', '1', '55.00', '2026-02-22 21:38:53', 'car_134_1771808033.png'),
+('Jaguar', 'F-Pace', '2021', '68000.00', 'SUV elegante', NULL, 'available', '20', '1', '1', '110.00', '2026-02-22 21:38:53', 'car_150_1771808295.png'),
+('Fiat', 'Panda', '2022', '32000.00', 'Citadino italiano', NULL, 'available', '38', '1', '1', '28.00', '2026-02-22 21:38:53', 'car_168_1771808172.png');
 
 INSERT INTO rentals (car_id, renter_id, start_date, end_date, total_price, status) VALUES
 (1, 1, '2026-02-01', '2026-02-05', 250.00, 'completed'),
