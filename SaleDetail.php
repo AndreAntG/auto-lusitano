@@ -8,7 +8,7 @@
     <link href="geral.css" rel="stylesheet" />
 </head>
 <?php
-require_once 'cnn.php';
+require_once 'api/cnn.php';
 global $pdo;
 
 // Get cars and customers for dropdowns

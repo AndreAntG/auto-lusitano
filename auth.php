@@ -1,7 +1,7 @@
 <?php
 // auth.php - Authentication functions
 
-require_once 'cnn.php';
+require_once 'api/cnn.php';
 
 // Login function
 function login($username, $password) {
