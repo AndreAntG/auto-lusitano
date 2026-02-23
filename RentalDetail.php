@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aluguel - Auto Lusitano</title>
+    <title>Aluguer - Auto Lusitano</title>
     <link href="geral.css" rel="stylesheet" />
 </head>
 <?php
@@ -21,7 +21,7 @@ $customers_stmt = $pdo->query($customers_sql);
 $customers = $customers_stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if (isset($_REQUEST['id'])) {
-    $title = "Editar Aluguel";
+    $title = "Editar Aluguer";
     $mode = "save";
     $id = intval($_REQUEST['id']);
     $sql = "SELECT * FROM rentals WHERE id = :id";
@@ -47,7 +47,7 @@ if (isset($_REQUEST['id'])) {
         }
     }
 } else {
-    $title = "Inserir Aluguel";
+    $title = "Registar Aluguer";
     $mode = "insert";
 }
 ?>

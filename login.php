@@ -145,7 +145,7 @@
 
                             <div class="mb-4">
                                 <label for="password" class="form-label">
-                                    <i class="fas fa-lock"></i> Password
+                                    <i class="fas fa-lock"></i> Palavra-passe
                                 </label>
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aluguéis - Auto Lusitano</title>
+    <title>Alugueres - Auto Lusitano</title>
     <style>
         .sortable {
             cursor: pointer;
@@ -22,14 +22,14 @@
 <body>
     <?php include 'header.html' ?>
     <div class="container mt-5">
-        <h3 class="text-center mb-4">Lista de Aluguéis</h3>
+        <h3 class="text-center mb-4">Lista de Alugueres</h3>
         <div class="d-flex justify-content-center mb-3">
-            <a href="RentalDetail.php" class="btn btn-primary">Novo Aluguel</a>
+            <a href="RentalDetail.php" class="btn btn-primary">Novo Aluguer</a>
         </div>
         <div class="form-check mb-3">
             <input class="form-check-input" type="checkbox" id="showCompleted">
             <label class="form-check-label" for="showCompleted">
-                Mostrar aluguéis concluídos/cancelados
+                Mostrar alugueres concluídos/cancelados
             </label>
         </div>
         <div class="row mb-3">

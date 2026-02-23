@@ -18,7 +18,7 @@ if (isset($_REQUEST['id'])) {
     $stmt->execute([':id' => $id]);
     $record = $stmt->fetch();
 } else {
-    $title = "Inserir Carro";
+    $title = "Registar Carro";
     $mode = "insert";
 }
 ?>

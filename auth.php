@@ -29,7 +29,7 @@ function login($username, $password) {
             echo "<script>console.log('Stored hash: " . addslashes($user['password']) . "');</script>";
             echo "<script>console.log('Generated hash for input: " . addslashes(password_hash($password, PASSWORD_DEFAULT)) . "');</script>";
             echo "<script>alert('Debug Info:\\nInput: " . addslashes($password) . "\\nStored Hash: " . addslashes($user['password']) . "\\nGenerated Hash: " . addslashes(password_hash($password, PASSWORD_DEFAULT)) . "');</script>";
-            return ['success' => false, 'message' => 'Password incorreta'];
+            return ['success' => false, 'message' => 'Palavra-passe incorreta'];
         }
 
         // Debug output for successful verification

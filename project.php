@@ -33,7 +33,7 @@
                                 <div class="alert alert-info">
                                     <h5><i class="fas fa-info-circle"></i> Sobre o Desenvolvimento</h5>
                                     <p>A base do projeto foi criada pelo professor em aula. Foi adicionado a biblioteca Bootstrap 5 para facilitar o design do frontend.</p>
-                                    <p>O projeto consiste em criar um stand virtual de compra e aluguer de carros. O sistema permite aos usuários gerenciar o inventário de veículos, realizando operações CRUD, utilizando PHP para a lógica de backend e PDO para a interação com a base de dados MySQL.</p>
+                                    <p>O projeto consiste em criar um stand virtual de compra e aluguer de carros. O sistema permite aos utilizadores gerenciar o inventário de veículos, realizando operações CRUD, utilizando PHP para a lógica de backend e PDO para a interação com a base de dados MySQL.</p>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <h6><i class="fas fa-folder"></i> Pasta API:</h6>
-                                                <p>A pasta <code>api/</code> contém os endpoints REST desenvolvidos em PHP que separam a lógica de negócio da interface do usuário. Esta arquitetura permite:</p>
+                                                <p>A pasta <code>api/</code> contém os endpoints REST desenvolvidos em PHP que separam a lógica de negócio da interface do utilizador. Esta arquitetura permite:</p>
                                                 <ul>
                                                     <li>Reutilização de código em diferentes interfaces</li>
                                                     <li>Separação clara entre frontend e backend</li>
@@ -142,7 +142,7 @@
                                                      <li><strong>images/:</strong> Guardar imagens locais</li>
                                                     <li><strong>header.html:</strong> Componente de navegação compartilhado</li>
                                                     <li><strong>session.php:</strong> Funções de gestão de sessão e controlo de acesso baseado em roles</li>
-                                                    <li><strong>auth.php:</strong> Funções de autenticação, incluindo login, verificação de passwords e criação de utilizadores</li>
+                                                    <li><strong>auth.php:</strong> Funções de autenticação, incluindo login, verificação de palavras-passe e criação de utilizadores</li>
                                                     <li><strong>login.php:</strong> Página de autenticação com interface responsiva</li>
                                                     <li><strong>logout.php:</strong> Funcionalidade de terminação segura de sessão</li>
                                                 </ul>

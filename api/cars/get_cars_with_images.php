@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 // get_cars_with_images.php - Get cars that have associated images
 
 require_once '../cnn.php';
-require_once '../session.php';
+require_once '../../session.php';
 
 // Check if user is logged in (API style - return JSON instead of redirect)
 if (!isLoggedIn()) {

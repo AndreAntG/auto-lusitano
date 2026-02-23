@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-PT">
 
 <head>
@@ -47,7 +47,7 @@ if (isset($_REQUEST['id'])) {
         }
     }
 } else {
-    $title = "Inserir Venda";
+    $title = "Registar Venda";
     $mode = "insert";
 }
 ?>
