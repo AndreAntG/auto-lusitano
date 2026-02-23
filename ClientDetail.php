@@ -7,7 +7,7 @@
     <title>Cliente</title>
 </head>
 <?php
-require_once 'cnn.php';
+require_once 'api/cnn.php';
 global $pdo;
 if (isset($_REQUEST['id'])) {
     $title = "Editar Cliente";
