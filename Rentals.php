@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 
 <head>
     <meta charset="UTF-8">
@@ -87,7 +87,7 @@
                 console.log(data);
                 originalData = data;
                 currentPage = 1; // Reset to first page
-                updateTable();
+                filterTable();
                 updateIcons();
             }).catch(erro => {
                 Swal.fire('Erro', erro.toString(), 'error');

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 
 <head>
     <meta charset="UTF-8">
@@ -94,6 +94,8 @@
                                                     <li>Validação de formulários</li>
                                                     <li>Interface responsiva</li>
                                                     <li>Feedback visual das operações</li>
+                                                    <li><strong>Sistema de Autenticação:</strong> Login obrigatório com controlo de acesso baseado em roles</li>
+                                                    <li>Proteção de rotas e segurança de sessão</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -139,6 +141,10 @@
                                                     <li><strong>api/:</strong> Endpoints para operações CRUD</li>
                                                      <li><strong>images/:</strong> Guardar imagens locais</li>
                                                     <li><strong>header.html:</strong> Componente de navegação compartilhado</li>
+                                                    <li><strong>session.php:</strong> Funções de gestão de sessão e controlo de acesso baseado em roles</li>
+                                                    <li><strong>auth.php:</strong> Funções de autenticação, incluindo login, verificação de passwords e criação de utilizadores</li>
+                                                    <li><strong>login.php:</strong> Página de autenticação com interface responsiva</li>
+                                                    <li><strong>logout.php:</strong> Funcionalidade de terminação segura de sessão</li>
                                                 </ul>
                                             </div>
                                         </div>

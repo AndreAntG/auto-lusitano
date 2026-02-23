@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,24 @@
         .sort-icon {
             margin-left: 5px;
         }
+        /* Make carousel control icons black */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: #000;
+            border-radius: 50%;
+            padding: 10px;
+        }
+        /* Fixed height for carousel items */
+        .carousel-item {
+            height: 400px;
+            display: flex;
+            align-items: center;
+        }
+        .carousel-item img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
     </style>
 </head>
 
@@ -26,13 +44,45 @@
         <div class="d-flex justify-content-center mb-3">
             <a href="CarDetail.php" class="btn btn-primary">Novo Carro</a>
         </div>
-        <div class="form-check mb-3">
+        
+    
+
+        <!-- Car Gallery Carousel -->
+        <div class="row justify-content-center mt-4 mb-4">
+            <div class="col-md-10">
+                <div class="card shadow">
+                    <div class="card-header bg-warning text-dark">
+                        <h3 class="card-title mb-0"><i class="fas fa-images"></i> Galeria de Carros</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="carCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner" id="carouselInner">
+                                <!-- Car images will be loaded here -->
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <small class="text-muted">Navegue pelas imagens dos nossos carros disponíveis</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<div class="form-check mt-5 mb-3">
             <input class="form-check-input" type="checkbox" id="showUnavailable">
             <label class="form-check-label" for="showUnavailable">
                 Mostrar carros não disponíveis
             </label>
         </div>
-        <div class="row mb-3">
+        <div class="row mt-1 mb-3">
             <div class="col-md-6">
                 <input type="text" class="form-control" id="filterMake" placeholder="Filtrar por Marca">
             </div>
@@ -88,7 +138,7 @@
                 console.log(data);
                 originalData = data;
                 currentPage = 1; // Reset to first page
-                updateTable();
+                filterTable();
                 updateSortIcons();
             }).catch(erro => {
                 Swal.fire('Erro', erro.toString(), 'error');
@@ -138,6 +188,7 @@
             console.log(records);
             carros.innerHTML = records.join("");
             // Update pagination
+            console.log('Updating pagination - currentPage:', currentPage, 'totalPages:', totalPages);
             pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
             prevBtn.disabled = currentPage === 1;
             nextBtn.disabled = currentPage === totalPages;
@@ -182,9 +233,11 @@
         }
         // Pagination buttons
         prevBtn.addEventListener('click', () => {
+            console.log('Prev button clicked, currentPage:', currentPage);
             if (currentPage > 1) {
                 currentPage--;
-                filterTable();
+                console.log('Going to page:', currentPage);
+                updateTable();
             }
         });
         nextBtn.addEventListener('click', () => {
@@ -196,14 +249,128 @@
                 return makeMatch && modelMatch;
             });
             let totalPages = Math.ceil(filtered.length / pageSize);
+            console.log('Next button clicked, currentPage:', currentPage, 'totalPages:', totalPages);
             if (currentPage < totalPages) {
                 currentPage++;
-                filterTable();
+                console.log('Going to page:', currentPage);
+                updateTable();
             }
         });
         function btEdit(id) {
             return `<button id='${id}' name='btedit' class='btn btn-warning btn-sm' data-id='${id}'>EDITAR</button>`;
         }
+
+        // Load car gallery carousel
+        function loadCarGallery() {
+            console.log('Loading car gallery...');
+            fetch('api/cars/get_cars_with_images.php')
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    console.log('Response headers:', response.headers);
+                    return response.text(); // Get as text first to debug
+                })
+                .then(text => {
+                    console.log('Raw response:', text);
+                    try {
+                        const data = JSON.parse(text);
+                        if (data.success) {
+                            const carouselInner = document.getElementById('carouselInner');
+                            const cars = data.cars;
+
+                            if (cars.length === 0) {
+                                carouselInner.innerHTML = `
+                                    <div class="carousel-item active">
+                                        <div class="text-center p-5">
+                                            <i class="fas fa-image fa-3x text-muted mb-3"></i>
+                                            <h5 class="text-muted">Nenhuma imagem disponível</h5>
+                                            <p class="text-muted">As imagens dos carros serão exibidas aqui quando disponíveis.</p>
+                                        </div>
+                                    </div>
+                                `;
+                                return;
+                            }
+
+                            let carouselItems = '';
+                            cars.forEach((car, index) => {
+                                const activeClass = index === 0 ? 'active' : '';
+                                const statusText = car.status === 'available' ? 'Disponível' :
+                                                 car.status === 'sold' ? 'Vendido' : 'Alugado';
+                                const statusClass = car.status === 'available' ? 'text-success' :
+                                                  car.status === 'sold' ? 'text-danger' : 'text-warning';
+
+                                carouselItems += `
+                                    <div class="carousel-item ${activeClass}">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <img src="images/${car.image_filename}"
+                                                     class="d-block w-100 rounded"
+                                                     alt="${car.make} ${car.model}">
+                                            </div>
+                                            <div class="col-md-6 d-flex align-items-center">
+                                                <div class="w-100">
+                                                    <h4 class="text-primary">${car.make} ${car.model}</h4>
+                                                    <h5 class="text-muted">${car.year}</h5>
+                                                    <p class="mb-2"><strong>Preço:</strong> €${parseFloat(car.price).toFixed(2)}</p>
+                                                    <p class="mb-2"><strong>Estado:</strong> <span class="${statusClass}">${statusText}</span></p>
+                                                    ${car.is_for_sale ? '<p class="mb-2"><i class="fas fa-shopping-cart text-success"></i> Disponível para venda</p>' : ''}
+                                                    ${car.is_for_rent ? `<p class="mb-2"><i class="fas fa-calendar-check text-info"></i> Disponível para aluguer (€${parseFloat(car.daily_rent_price).toFixed(2)}/dia)</p>` : ''}
+                                                    ${car.description ? `<p class="mb-2"><strong>Descrição:</strong> ${car.description}</p>` : ''}
+                                                    ${car.owner_name ? `<p class="mb-0"><small class="text-muted">Proprietário: ${car.owner_name}</small></p>` : ''}
+                                                    <div class="mt-3">
+                                                        <a href="CarDetail.php?id=${car.id}" class="btn btn-primary btn-sm">
+                                                            <i class="fas fa-eye"></i> Ver Detalhes
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            });
+
+                            carouselInner.innerHTML = carouselItems;
+                        } else {
+                            console.error('Error loading car gallery:', data.message);
+                            document.getElementById('carouselInner').innerHTML = `
+                                <div class="carousel-item active">
+                                    <div class="text-center p-5">
+                                        <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                                        <h5 class="text-warning">Erro ao carregar galeria</h5>
+                                        <p class="text-muted">${data.message}</p>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    } catch (jsonError) {
+                        console.error('JSON parse error:', jsonError);
+                        document.getElementById('carouselInner').innerHTML = `
+                            <div class="carousel-item active">
+                                <div class="text-center p-5">
+                                    <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+                                    <h5 class="text-danger">Erro de resposta</h5>
+                                    <p class="text-muted">Resposta inválida do servidor: ${text}</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    document.getElementById('carouselInner').innerHTML = `
+                        <div class="carousel-item active">
+                            <div class="text-center p-5">
+                                <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+                                <h5 class="text-danger">Erro de conexão</h5>
+                                <p class="text-muted">Não foi possível carregar a galeria de carros.</p>
+                                <small class="text-muted">Erro: ${error.message}</small>
+                            </div>
+                        </div>
+                    `;
+                });
+        }
+
+        // Load gallery when page loads
+        document.addEventListener('DOMContentLoaded', loadCarGallery);
     </script>
 </body>
 

@@ -24,7 +24,7 @@ CREATE TABLE cars (
     year INT NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     description TEXT,
-    image VARCHAR(255),
+    image_filename VARCHAR(255), -- Filename of the car's image
     status ENUM('available', 'sold', 'rented') DEFAULT 'available',
     owner_id INT, -- Customer who owns the car (for customer-listed cars)
     is_for_sale BOOLEAN DEFAULT FALSE,
@@ -61,11 +61,24 @@ CREATE TABLE rentals (
     FOREIGN KEY (renter_id) REFERENCES customer(id)
 ) DEFAULT CHARSET utf8mb4;
 
+-- Users table (for application authentication)
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL, -- Will store hashed passwords
+    email VARCHAR(100) UNIQUE NOT NULL,
+    role ENUM('admin', 'manager', 'user') DEFAULT 'user',
+    status TINYINT(1) NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_login TIMESTAMP NULL
+) DEFAULT CHARSET utf8mb4;
+
 -- Reset auto-increment counters before inserting data
 ALTER TABLE customer AUTO_INCREMENT = 1;
 ALTER TABLE cars AUTO_INCREMENT = 1;
 ALTER TABLE sales AUTO_INCREMENT = 1;
 ALTER TABLE rentals AUTO_INCREMENT = 1;
+ALTER TABLE users AUTO_INCREMENT = 1;
 
 -- Insert some sample data
 INSERT INTO customer (name, email, phone, address, status) VALUES
@@ -195,3 +208,21 @@ INSERT INTO rentals (car_id, renter_id, start_date, end_date, total_price, statu
 (5, 5, '2026-03-01', '2026-03-07', 420.00, 'active'),
 (6, 6, '2026-01-15', '2026-01-20', 300.00, 'cancelled');
 
+-- Insert sample users (passwords are hashed using password_hash() in PHP)
+-- Default password for all users is 'password123' (hashed)
+INSERT INTO users (username, password, email, role, status) VALUES
+('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@autolusitano.pt', 'admin', 1), -- password: password123
+('manager', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'manager@autolusitano.pt', 'manager', 1), -- password: password123
+('user', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'user@autolusitano.pt', 'user', 1); -- password: password123
+
+-- Users table (for application authentication)
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL, -- Will store hashed passwords
+    email VARCHAR(100) UNIQUE NOT NULL,
+    role ENUM('admin', 'manager', 'user') DEFAULT 'user',
+    status TINYINT(1) NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_login TIMESTAMP NULL
+) DEFAULT CHARSET utf8mb4;

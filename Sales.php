@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 
 <head>
     <meta charset="UTF-8">
@@ -71,17 +71,21 @@
         const pageSize = 10;
         let sortField = 'sale_date';
         let sortOrder = 'desc';
-        window.onload = function () {
+        function loadData() {
             fetch("api/sales/getSalesList.php", {
                 method: 'get'
             }).then(response => response.json()).then(data => {
                 console.log(data);
                 originalData = data;
-                updateTable();
+                currentPage = 1; // Reset to first page
+                filterTable();
                 updateIcons();
             }).catch(erro => {
                 Swal.fire('Erro', erro.toString(), 'error');
             });
+        }
+        window.onload = function () {
+            loadData();
         }
         function filterTable() {
             currentPage = 1; // Reset to first page when filtering
@@ -172,7 +176,16 @@
             }
         });
         nextBtn.addEventListener('click', () => {
-            let totalPages = Math.ceil(originalData.length / pageSize);
+            let sellerFilter = document.getElementById('filterSeller').value.toLowerCase();
+            let buyerFilter = document.getElementById('filterBuyer').value.toLowerCase();
+            let carFilter = document.getElementById('filterCar').value.toLowerCase();
+            let filtered = originalData.filter(v => {
+                let sellerMatch = v.seller_name.toLowerCase().includes(sellerFilter);
+                let buyerMatch = v.buyer_name.toLowerCase().includes(buyerFilter);
+                let carMatch = (v.car_make + ' ' + v.car_model).toLowerCase().includes(carFilter);
+                return sellerMatch && buyerMatch && carMatch;
+            });
+            let totalPages = Math.ceil(filtered.length / pageSize);
             if (currentPage < totalPages) {
                 currentPage++;
                 updateTable();

@@ -19,7 +19,7 @@ This educational project aims to:
 
 ### Core Functionality
 - **Customer Management**: Complete CRUD operations for client records
-- **Vehicle Inventory**: Manage car listings with detailed specifications
+- **Vehicle Inventory**: Manage car listings with detailed specifications and image uploads
 - **Sales Management**: Track vehicle sales transactions
 - **Rental Management**: Handle car rental agreements and bookings
 - **Status Management**: Activate/deactivate records with soft delete functionality
@@ -30,6 +30,7 @@ This educational project aims to:
 - Form validation and user feedback
 - Responsive Bootstrap 5 design
 - Font Awesome icons for enhanced UI
+- **Image Upload System**: Secure file upload with validation, automatic replacement, and deletion
 
 ## Technology Stack
 
@@ -51,10 +52,13 @@ This educational project aims to:
 auto-lusitano/
 ├── api/                    # REST API endpoints
 │   ├── cars/              # Vehicle management endpoints
+│   │   ├── upload_image.php    # Image upload handler
+│   │   ├── delete_image.php    # Image deletion handler
+│   │   └── ...                 # Other car endpoints
 │   ├── customer/          # Customer management endpoints
 │   ├── rentals/           # Rental management endpoints
 │   └── sales/             # Sales management endpoints
-├── images/                # Static image assets
+├── images/                # Car image storage
 ├── car_stand.sql          # Database schema
 ├── *.php                  # Main application pages
 ├── header.html            # Shared navigation component
@@ -65,9 +69,31 @@ auto-lusitano/
 
 The application uses a MySQL database with the schema defined in `car_stand.sql`. The database includes tables for:
 - Customers (clients)
-- Vehicles (cars)
+- Vehicles (cars) - includes image_filename for photo storage
 - Sales transactions
 - Rental agreements
+- Users (authentication system)
+
+## Authentication & Security
+
+The application includes a comprehensive login system to protect access to all features:
+
+### User Roles
+- **Admin**: Full access to all features and user management
+- **Manager**: Access to all business operations (CRUD on customers, cars, sales, rentals)
+- **User**: Limited access to view and basic operations
+
+### Default Login Credentials
+- **Admin**: `admin` / `password123`
+- **Manager**: `manager` / `password123`
+- **User**: `user` / `password123`
+
+### Security Features
+- Password hashing using PHP's `password_hash()` function
+- Session-based authentication
+- Protected routes requiring login
+- Role-based access control
+- Secure logout functionality
 
 ## Installation & Setup
 
@@ -75,6 +101,7 @@ The application uses a MySQL database with the schema defined in `car_stand.sql`
 2. Configure database connection in `cnn.php` and `api/cnn.php`
 3. Ensure PHP 7+ and MySQL are installed
 4. Access the application through a web server (Apache/Nginx)
+5. Login using the default credentials above
 
 ## Author
 

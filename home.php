@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,11 @@
 </head>
 
 <body>
-    <?php include 'header.html' ?>
+    <?php
+    require_once 'session.php';
+    requireLogin();
+    include 'header.html';
+    ?>
     <div class="container mt-5">
         <!-- Hero Section -->
         <div class="row justify-content-center mb-5">
